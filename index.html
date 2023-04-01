@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,13 +8,20 @@
     <link rel="stylesheet" href="./pages/index.css">
     <title>Russia</title>
 </head>
+
 <body class="page-body">
     <div class="page">
-        <div class="main-content">
+            <header class="header">
+                <img src="./images/Mesto-logo.svg" alt="Лого место" class="header__logo">
+                <div class="header__line">
+
+                </div>
+            </header>
+        <main class="main-content">
         <!-- <section class="form">
-            <div class="form__container">
-                <form action="#" method="post" class="form__kusto">
-                   <div class="form__main-container">
+                <div class="form__container">
+                    <form action="#" method="post" class="form__kusto">
+                    <div class="form__main-container">
                         <h2 class="form__heading">Редактировать профиль</h2>
                         <input type="text" class="form__item form__item_el_heading" value="Жак-Ив Кусто">
                         <br>
@@ -22,22 +30,92 @@
                         <br>
                         <br>
                         <input type="submit" value="Сохранить" class="form__button">
-                   </div> 
-                </form>
-            </div>
-        </section> -->
-            <header class="header">
-                <img src="./images/Mesto-logo.svg" 
-                    alt="Лого место" 
-                    class="header__logo">
-                <div class="header__line">
-                    
+                    </div> 
+                    </form>
                 </div>
-            </header>
-            <main>
-                
-            </main>
-        </div>
+            </section> -->
+            <section class="profile">
+                <img src="./images/avatar.jpg" alt="Аватар профиля" class="profile__avatar">
+                <div class="profile__info">
+                    <h1 class="profile__name">
+                        Жак-Ив Кусто
+                    </h1>
+                    <p class="profile__about">
+                        Исследователь океана
+                    </p>
+                    <button class="profile__edit-button">
+                        <img src="./images/edit-button.svg" alt="Кнопка редактирование">
+                    </button>
+                </div>
+                <button class="profile__add-button">
+                    <img src="./images/add-button.svg" alt="Кнопка добавление">
+                </button>
+            </section>
+            <section class="elements">
+                <ul class="elements__list">
+                    <il class="elements__block">
+                        <div class="elements__rectangle">
+                            <img src="./images/karachaevsk.jpg" alt="Карачаевск" class="elements__image">
+                            <div class="elements__group">
+                                <p class="elements__name">Карачаевск</p>
+                                <img src="./images/like.svg" alt="Лайк" class="elements__like">
+                            </div>
+                        </div>
+                    </il>
+                    <il class="elements__block">
+                        <div class="elements__rectangle">
+                            <img src="./images/elbrus.jpg" alt="Гора Эльбрус" class="elements__image">
+                            <div class="elements__group">
+                                <p class="elements__name">Гора Эльбрус</p>
+                                <img src="./images/like.svg" alt="Лайк" class="elements__like">
+                            </div>
+                        </div>
+                    </il>
+                    <il class="elements__block">
+                        <div class="elements__rectangle">
+                            <img src="./images/donbay.jpg" alt="Донбай" class="elements__image">
+                            <div class="elements__group">
+                                <p class="elements__name">Донбай</p>
+                                <img src="./images/like.svg" alt="Лайк" class="elements__like">
+                            </div>
+                        </div>
+                    </il>
+                    <il class="elements__block">
+                        <div class="elements__rectangle">
+                            <img src="./images/elbrus.jpg" alt="Гора Эльбрус" class="elements__image">
+                            <div class="elements__group">
+                                <p class="elements__name">Гора Эльбрус</p>
+                                <img src="./images/like.svg" alt="Лайк" class="elements__like">
+                            </div>
+                        </div>
+                    </il>
+                    <il class="elements__block">
+                        <div class="elements__rectangle">
+                            <img src="./images/donbay.jpg" alt="Донбай" class="elements__image">
+                            <div class="elements__group">
+                                <p class="elements__name">Донбай</p>
+                                <img src="./images/like.svg" alt="Лайк" class="elements__like">
+                            </div>
+                        </div>
+                    </il>
+                    <il class="elements__block">
+                        <div class="elements__rectangle">
+                            <img src="./images/karachaevo.jpg" alt="Корачаево-Ч" class="elements__image">
+                            <div class="elements__group">
+                                <p class="elements__name">Карачаево-Черкесская</p>
+                                <img src="./images/like.svg" alt="Лайк" class="elements__like">
+                            </div>
+                        </div>
+                    </il>
+                </ul>
+            </section>
+        </main>
+        <footer class="footer">
+            <p class="footer__copyright">
+                © 2023 Mr. Kuchkarov
+            </p>
+        </footer>
     </div>
 </body>
+
 </html>
