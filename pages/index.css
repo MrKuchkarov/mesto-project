@@ -20,6 +20,7 @@
 @import url(../blocks/profile/__info/__edit-button/profile__edit-button.css);
 @import url(../blocks/profile/__info/__name/profile__name.css);
 @import url(../blocks/profile/__info/__edit-button-icon/profile__edit-button-icon.css);
+@import url(../blocks/profile/profile__add-button-icon/profile__add-button-icon.css);
 
 @import url(../blocks/elements/elements.css);
 @import url(../blocks/elements/__block/elements__block.css);
@@ -45,3 +46,10 @@
 @import url(../blocks/popup/__main-container/form__main-container.css);
 @import url(../blocks/popup/_opened/popup_opened.css);
 @import url(../blocks/popup/__close/popup__close.css);
+
+@import url(../blocks/hover-active-save/hover-active-save.css);
+@import url(../blocks/hover-active-close/hover-active-close.css);
+@import url(../blocks/hover-active-like/hover-active-like.css);
+@import url(../blocks/like-active/like-active.css);
+@import url(../blocks/like-disable/like-disable.css);
+

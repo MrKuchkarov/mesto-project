@@ -1,0 +1,9 @@
+.hover-active-save {
+    opacity: 1;
+    transition: 2s;
+    }
+        
+.hover-active-save:hover {
+    opacity: 0.8;
+    }
+    

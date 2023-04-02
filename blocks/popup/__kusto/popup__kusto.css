@@ -1,10 +1,18 @@
 .popup__kusto {
     margin: auto;
-    max-width: 430px;
-    max-height: 330px;
+    width: 430px;
+    height: 330px;
     background-color: white;
     text-align: center;
     position: relative;
     border-radius: 10px;
-    padding: 34px 36px 37px;
+
+}
+
+@media (max-width: 370px) {
+.popup__kusto {
+    width: 282px;
+    height: 322px;
+    
+    } 
 }

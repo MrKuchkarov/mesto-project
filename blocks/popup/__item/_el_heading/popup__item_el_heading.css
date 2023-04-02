@@ -1,8 +1,10 @@
 .popup__item_el_heading {
-    font-style: normal;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 17px;
-    color: #000000;
-
+    margin: 54px auto 0px auto;
 }
+
+@media (max-width: 370px) {
+.popup__item_el_heading {
+    margin: 75px 0px 0px 22px;
+}
+}
+

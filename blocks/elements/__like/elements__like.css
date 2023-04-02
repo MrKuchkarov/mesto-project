@@ -1,4 +1,9 @@
 .elements__like {
     width: 22px;
     height: 19px;
+    cursor: pointer;
+}
+
+.elements__like:active {
+    background-image: url(../../../images/black-like.svg);
 }
