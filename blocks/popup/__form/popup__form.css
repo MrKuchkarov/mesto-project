@@ -1,4 +1,4 @@
-.popup__kusto {
+.popup__form {
     margin: auto;
     width: 430px;
     height: 330px;
@@ -10,7 +10,7 @@
 }
 
 @media (max-width: 370px) {
-.popup__kusto {
+.popup__form {
     width: 282px;
     height: 322px;
     

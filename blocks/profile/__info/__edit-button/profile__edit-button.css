@@ -7,6 +7,7 @@
     grid-area: button;
     align-self: center;
     cursor: pointer;
+    margin-top: 10px;
     
 }
 
@@ -18,5 +19,6 @@
     padding: 0;
     inset-block-start: 34px;
     inset-inline-end: 19px;
+    margin: 0;
 }
 }

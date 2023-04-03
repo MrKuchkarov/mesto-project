@@ -1,4 +1,4 @@
-.popup__close {
+.popup__close-icon {
     width: 32px;
     height: 32px;
     position: absolute;
@@ -8,7 +8,7 @@
 }
 
 @media (max-width: 370px) {
-.popup__close {
+.popup__close-icon {
     width: 20px;
     height: 20px;
     top: -35px;
