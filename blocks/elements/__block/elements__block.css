@@ -1,3 +1,5 @@
 .elements__block {
     box-sizing: border-box;
+    background-color: white;
+    border-radius: 10px;
 }
