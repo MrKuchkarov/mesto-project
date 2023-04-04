@@ -16,10 +16,11 @@
     .profile__edit-button {
         width: 18px;
         height: 18px;
-        position: absolute;
         padding: 0;
-        inset-block-start: 34px;
-        inset-inline-end: 5px;
         margin: 0;
     }
+}
+
+.profile__edit-button:hover {
+    opacity: 0.6;
 }

@@ -1,9 +1,0 @@
-.hover-active-like {
-    opacity: 1;
-    transition: 1s;
-    }
-        
-.hover-active-like:hover {
-    opacity: 0.5;
-    }
-    

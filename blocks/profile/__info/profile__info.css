@@ -1,7 +1,6 @@
 .profile__info {
-
     display: grid;
-    grid-template-columns: minmax(auto, auto) auto;
+    grid-template-columns: auto;
     grid-template-areas:
         "name button"
         "about .";
@@ -9,12 +8,9 @@
     box-sizing: border-box;
 }
 
-@media (max-width: 650px) {
+@media (max-width: 720px) {
     .profile__info {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+        max-width: 282px;
         padding: 26px 0px 36px 0px;
         gap: 0px;
         position: relative;

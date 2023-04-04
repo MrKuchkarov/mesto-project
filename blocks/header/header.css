@@ -9,7 +9,7 @@
 
 }
 
-@media (max-width: 375px) {
+@media (max-width: 720px) {
 .header {
     row-gap: 31px;
     padding: 28px 0px 0px 0px;
