@@ -12,6 +12,10 @@
     background-position: 50%;
 }
 
+.profile__add-button:hover {
+    opacity: 0.6;
+}
+
 @media (max-width: 720px) {
     .profile__add-button {
         margin: 0;
@@ -19,8 +23,4 @@
         background-size: 16px 16px;
 
     }
-}
-
-.profile__add-button:hover {
-    opacity: 0.8;
 }

@@ -2,8 +2,6 @@
     margin: auto;
     width: 430px;
     text-align: center;
-    position: relative;
-
 }
 
 @media (max-width: 602px) {

@@ -7,9 +7,13 @@
     grid-area: button;
     align-self: center;
     cursor: pointer;
-    background-image: url(../../../../images/edit-button.svg);
+    background-image: url(../../../images/edit-button.svg);
     background-repeat: no-repeat;
     background-position: 50%;
+}
+
+.profile__edit-button:hover {
+    opacity: 0.6;
 }
 
 @media (max-width: 500px) {
@@ -19,8 +23,4 @@
         padding: 0;
         margin: 0;
     }
-}
-
-.profile__edit-button:hover {
-    opacity: 0.6;
 }
