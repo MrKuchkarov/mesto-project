@@ -3,5 +3,8 @@
     font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
     max-width: 1280px;
     margin: 0 auto;
-
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%; 
+    text-rendering: optimizeLegibility;
 }
