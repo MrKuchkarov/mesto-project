@@ -31,48 +31,7 @@
         </section>
         <section class="elements">
             <ul class="elements__list">
-                <li class="card">
-                    <img src="./images/sochirun.jpg" alt="Сочи марафон" class="card__image">
-                    <div class="card__group">
-                        <h2 class="card__title">Сочи марафон</h2>
-                        <button type="button" aria-label="Кнопка лайк" class="card__like"></button>
-                    </div>
-                </li>
-                <li class="card">
-                    <img src="./images/spbrun.jpg" alt="Фото из Пушкин-СПб" class="card__image">
-                    <div class="card__group">
-                        <h2 class="card__title">Пушкин-СПб</h2>
-                        <button type="button" aria-label="Кнопка лайк" class="card__like card__like_active"></button>
-                    </div>
-                </li>
-                <li class="card">
-                    <img src="./images/mospromrun.jpg" alt="Фото из МосПром" class="card__image">
-                    <div class="card__group">
-                        <h2 class="card__title">Забег МосПром</h2>
-                        <button type="button" aria-label="Кнопка лайк" class="card__like"></button>
-                    </div>
-                </li>
-                <li class="card">
-                    <img src="./images/spb.jpg" alt="СПб полумарафон" class="card__image">
-                    <div class="card__group">
-                        <h2 class="card__title">СПб полумарафон</h2>
-                        <button type="button" aria-label="Кнопка лайк" class="card__like card__like_active"></button>
-                    </div>
-                </li>
-                <li class="card">
-                    <img src="./images/ssrun.jpg" alt="Царское село марафон" class="card__image">
-                    <div class="card__group">
-                        <h2 class="card__title">Царское село</h2>
-                        <button type="button" aria-label="Кнопка лайк" class="card__like card__like_active"></button>
-                    </div>
-                </li>
-                <li class="card">
-                    <img src="./images/beermile.jpg" alt="Москва бир миля" class="card__image">
-                    <div class="card__group">
-                        <h2 class="card__title">Пивная миля</h2>
-                        <button type="button" aria-label="Кнопка лайк" class="card__like"></button>
-                    </div>
-                </li>
+                
             </ul>
         </section>
     </main>
@@ -87,11 +46,11 @@
             <button type="button" aria-label="Закрыть окно" name="popupclosebutton" class="popup__close-icon"></button>
             <form action="#" method="post" class="popup__form" name="formpopup">
                 <h2 class="popup__heading">Редактировать профиль</h2>
-                <input type="text" id="popupname" required placeholder="Имя пользователья"
-                    class="popup__item popup__item_heading" value="Кучкаров М.А" name="popupheading">
-                <input type="text" id="popupsurename" required placeholder="О себе"
+                <input type="text" id="popupname" placeholder="Имя пользователья"
+                    class="popup__item popup__item_heading" value="Кучкаров М.А" name="popupHeading" required>
+                <input type="text" id="popupsurename" placeholder="О себе"
                     class="popup__item popup__item_subheading" value="Полупрограммист и бегун от бога"
-                    name="popupsubheading">
+                    name="popupSubHeading" required>
                 <button type="submit" aria-label="Кнопка сохранить" name="popupbutton" class="popup__button-save">
                     Сохранить
                 </button>
@@ -103,14 +62,14 @@
         <div class="popup__container">
             <button type="button" aria-label="Закрыть окно" name="popupclosebutton"
                 class="popup__close-icon popup__close-icon_card"></button>
-            <form action="#" method="post" class="popup__form" name="formpopup">
+            <form id="addCardPopUpForm"  class="popup__form" name="formpopup">
                 <h2 class="popup__heading">Новая карточка</h2>
-                <input type="text" id="popupname" required placeholder="Название карточки"
-                    class="popup__item popup__item_heading popup__item_heading_card" value="Напишите название"
-                    name="popupheading">
-                <input type="text" id="popupsurename" required placeholder="Ссылка для картинки"
-                    class="popup__item popup__item_subheading popup__item_subheading_card" value="Ссылка"
-                    name="popupsubheading">
+                <input type="text" id="popupNameTitle" placeholder="Название карточки"
+                    class="popup__item popup__item_heading popup__item_heading_card" value=""
+                    name="popupheading" required>
+                <input type="text" id="popupLink" placeholder="Ссылка для картинки"
+                    class="popup__item popup__item_subheading popup__item_subheading_card" value=""
+                    name="popupsubheading" required>
                 <button type="submit" aria-label="Кнопка добавить" name="popupbuttoncard"
                     class="popup__button-save popup__button-add_card">
                     Добавить
@@ -119,9 +78,6 @@
         </div>
     </div>
 
-    <script src="./index.js">
-
-    </script>
     <template id="card-template">
         <li class="card">
             <img src="" alt="" class="card__image">
@@ -132,6 +88,7 @@
             </div>
         </li>
     </template>
+    <script src="./index.js"></script>
 </body>
 
 </html>
