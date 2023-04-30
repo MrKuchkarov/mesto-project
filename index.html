@@ -17,12 +17,8 @@
         <section class="profile">
             <img src="./images/avatarmk.jpg" alt="Аватар профиля" class="profile__avatar">
             <div class="profile__info">
-                <h1 class="profile__name">
-                    Кучкаров М.А
-                </h1>
-                <p class="profile__about">
-                    Полупрограммист и бегун от бога
-                </p>
+                <h1 class="profile__name">Кучкаров М.А</h1>
+                <p class="profile__about">Полупрограммист и бегун от бога</p>
                 <button type="button" aria-label="Редактировать профиль" class="profile__edit-button">
                 </button>
             </div>
@@ -41,15 +37,15 @@
         </p>
     </footer>
 
-    <div class="popup">
+    <div class="popup popup_type_profile">
         <div class="popup__container">
             <button type="button" aria-label="Закрыть окно" name="popupclosebutton" class="popup__close-icon"></button>
             <form action="#" method="post" class="popup__form" name="formpopup">
                 <h2 class="popup__heading">Редактировать профиль</h2>
-                <input type="text" id="popupname" placeholder="Имя пользователья"
-                    class="popup__item popup__item_heading" value="Кучкаров М.А" name="popupHeading" required>
-                <input type="text" id="popupsurename" placeholder="О себе"
-                    class="popup__item popup__item_subheading" value="Полупрограммист и бегун от бога"
+                <input type="text" id="popupName" placeholder="Имя пользователья"
+                    class="popup__item popup__item_heading" value="" name="popupHeading" required>
+                <input type="text" id="popupSureName" placeholder="О себе"
+                    class="popup__item popup__item_subheading" value=""
                     name="popupSubHeading" required>
                 <button type="submit" aria-label="Кнопка сохранить" name="popupbutton" class="popup__button-save">
                     Сохранить
@@ -66,10 +62,10 @@
                 <h2 class="popup__heading">Новая карточка</h2>
                 <input type="text" id="popupNameTitle" placeholder="Название карточки"
                     class="popup__item popup__item_heading popup__item_heading_card" value=""
-                    name="popupheading" required>
+                    name="popupHeading" required>
                 <input type="text" id="popupLink" placeholder="Ссылка для картинки"
-                    class="popup__item popup__item_subheading popup__item_subheading_card" value=""
-                    name="popupsubheading" required>
+                    class="popup__item popup__item_subheading" value=""
+                    name="popupSubHeading" required>
                 <button type="submit" aria-label="Кнопка добавить" name="popupbuttoncard"
                     class="popup__button-save popup__button-add_card">
                     Добавить
@@ -78,8 +74,20 @@
         </div>
     </div>
 
+    <div class="popup popup_zoom_pic">
+        <div class="popup__container-pic">
+            <button type="button" aria-label="Закрыть окно" name="popupCloseButton"
+                class="popup__close-icon popup_close-icon_zoom"></button>
+                <figure class="popup__pic-block">
+                    <img src="" alt="" class="popup__zoom-pic">
+                    <figcaption class="popup__pic-description"></figcaption>
+                </figure>
+        </div>
+    </div>
+
     <template id="card-template">
         <li class="card">
+            <button type="button" aria-label="Удлалить карточку" class="card__delete"></button>
             <img src="" alt="" class="card__image">
             <div class="card__group">
                 <h2 class="card__title"></h2>
@@ -88,7 +96,7 @@
             </div>
         </li>
     </template>
-    <script src="./index.js"></script>
+    <script src="./components/index.js"></script>
 </body>
 
 </html>
