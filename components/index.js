@@ -16,7 +16,7 @@ const popupDescription = document.querySelector(".popup__pic-description");
 const buttonClosePopupZoom = document.querySelector(".popup_close-icon_zoom");
 const popupZoom = document.querySelector(".popup_zoom_pic");
 const popupProfile = document.querySelector(".popup_type_profile");
-
+const popupFormProfile = document.querySelector('.popup__form');
 
 //Функция для открытия Попап
 function openPopup(popupElement) {
@@ -62,26 +62,9 @@ function closePopupImage () {
 }
 buttonClosePopupZoom.addEventListener("click", closePopupImage);
 
-//Редактирование профилья 
-// function emptyForm() {
-//   profileUserName.textContent = inputUserName.value;
-//   profileUserAbout.textContent = inputAboutMySelf.value;
-  
-//   inputUserName.value = "";
-//   inputAboutMySelf.value = "";
-
-//   closePopup(popupElement);
-
-// }
-  
-//   buttonSavePopupForm.addEventListener("submit", (event) => {
-//     event.preventDefault();
-//     emptyForm();
-// });
-// buttonSavePopupForm.addEventListener("click", emptyForm);
-
+//Связка попап с профилем
 function emptyForm(event) {
-  event.preventDefault(); // предотвращаем перезагрузку страницы
+  event.preventDefault();
   profileUserName.textContent = inputUserName.value;
   profileUserAbout.textContent = inputAboutMySelf.value;
   
@@ -90,7 +73,8 @@ function emptyForm(event) {
 
   closePopup(popupElement);
 }
-  buttonSavePopupForm.addEventListener("submit", emptyForm);  
+
+  popupFormProfile.addEventListener("submit", emptyForm);  
   
 //Открытия попап, добавление картинки и описание картинки в попап
 function zoomImageCard(cardName, imageLink) {
