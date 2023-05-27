@@ -1,6 +1,6 @@
 .popup__item {
     display: block;
-    margin: 54px auto 30px auto;
+    margin: 54px auto 0px auto;
     width: 358px;
     border-top: none;
     border-left: none;
@@ -15,6 +15,7 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
+    
 }
 
 .popup__item:last-of-type {
