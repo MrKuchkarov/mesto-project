@@ -1,5 +1,6 @@
 import { openPopup } from "./modal";
 import { popupZoom, popupImage, popupDescription } from "./constants"
+// import { toggleButtonState } from ("./validate");
 
 //Функция для удаление карточки 
 function removeCard(event) {
@@ -8,7 +9,7 @@ function removeCard(event) {
   
   
   //Функция для лайки
-function likeCard(evt) {
+function toggleLike(evt) {
     evt.target.classList.toggle("card__like_active");
   };
 
@@ -33,11 +34,11 @@ export function createNewCard(cardName, imageLink) {
   
   cardElement.querySelector(".card__title").textContent = cardName;
   cardElement.querySelector(".card__delete").addEventListener("click", removeCard);
-  cardElement.querySelector(".card__like").addEventListener("click", likeCard);
+  cardElement.querySelector(".card__like").addEventListener("click", toggleLike);
 
-  cardElement.querySelector(".card__image").addEventListener("click", () => zoomImageCard(cardName, imageLink));
+  cardImage.addEventListener("click", () => zoomImageCard(cardName, imageLink));
   
   return cardElement;
-    
+  
  }; 
  

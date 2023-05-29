@@ -43,7 +43,7 @@ const showInputError = (formPopupElement, inputPopupElement, errorMessage, confi
     toggleButtonState(inputPopupList, buttonPopupElement, config);
     
     inputPopupList.forEach((inputPopupElement) => {
-      inputPopupElement.addEventListener('input', function () {
+      inputPopupElement.addEventListener("input", function () {
         checkInputValidity(formPopupElement, inputPopupElement, config);
         toggleButtonState(inputPopupList, buttonPopupElement, config);
       });
@@ -54,10 +54,10 @@ const showInputError = (formPopupElement, inputPopupElement, errorMessage, confi
     const formPopupList = Array.from(document.querySelectorAll(config.formSelector));
   
     formPopupList.forEach((formPopupElement) => {
-      formPopupElement.addEventListener('submit', (evt) => {
+      formPopupElement.addEventListener("submit", (evt) => {
         evt.preventDefault();
       });
-  
+      
       setEventListeners(formPopupElement, config);
     });
   }

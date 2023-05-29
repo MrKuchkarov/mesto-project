@@ -1,4 +1,4 @@
-import { popupElement, popupElementCard, popupZoom } from "./constants"
+import { popupElementCard } from "./constants"
 
 //Функция для открытия Попап
 export function openPopup(popupElement) {
@@ -28,28 +28,12 @@ export function openPopup(popupElement) {
     }
   }
 
- //Закрытия попап профилья
-export function closePopupProfile () {
-  closePopup(popupElement);
-}
+  //Открытия попап для добавления карточки
+  export function openPopupCard() {
+    openPopup(popupElementCard);
+  }
 
 
-//Открытия попап для добавления карточки
-export function openPopupCard() {
-  openPopup(popupElementCard);
-}
-
-
-//Закрытия попап для добавления карточки
-export function closePopupCards () {
-  closePopup(popupElementCard);
-}
-
-
-//Закрытия попап для зум картинки
-export function closePopupImage () {
-  closePopup(popupZoom);
-}
 
 
   

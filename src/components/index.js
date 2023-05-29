@@ -1,36 +1,33 @@
 import '../pages/index.css'; // добавьте импорт главного файла стилей 
-import { buttonOpenPopupProfile, 
-  buttonClosePopupProfile, 
-  popupElement, 
-  buttonSavePopupForm, 
+import { buttonOpenPopupProfile, popupCloseButtons, popupElement, 
   profileUserName, 
   profileUserAbout, 
   inputUserName, 
   inputAboutMySelf, 
   buttonOpenPopupCard, 
-  buttonClosePopupCard, 
   popupElementCard, 
   buttonAddCard, 
   cardContainer, 
-  popupImage, 
-  popupDescription, 
-  buttonClosePopupZoom, 
-  popupZoom, 
   popupProfile, 
   popupFormProfile, 
-  popupFormInput, 
   validationConfig, 
   initialCards, 
-  parentWrapper, 
+  popupCardForm, 
   nameInputPopup, 
   nameInputLink } from "./constants";
-import { openPopup, closePopup, closePopupProfile, openPopupCard, closePopupCards, closePopupImage } from './modal';
+import { openPopup, closePopup, openPopupCard } from './modal';
 import { createNewCard } from './card';
 import { enableValidation } from './validate'; 
 
 
 
 enableValidation(validationConfig);
+
+//Закрытия попапов 
+popupCloseButtons.forEach((button) => {
+  button.addEventListener("click", () => closePopup(button.closest(".popup")));
+});
+
 
 //Открытия попап профилья  
 function openPopupProfile () {
@@ -40,17 +37,9 @@ function openPopupProfile () {
 }
 buttonOpenPopupProfile.addEventListener("click", openPopupProfile);
 
- //Закрытия попап профилья
-buttonClosePopupProfile.addEventListener("click", closePopupProfile);
 
 //Открытия попап для добавления карточки
 buttonOpenPopupCard.addEventListener("click", openPopupCard);
-
-//Закрытия попап для добавления карточки
-buttonClosePopupCard.addEventListener("click", closePopupCards);
-
-//Закрытия попап для зум картинки
-buttonClosePopupZoom.addEventListener("click", closePopupImage);
 
 
 //Связка попап с профилем
@@ -58,9 +47,6 @@ function editProfile(event) {
   event.preventDefault();
   profileUserName.textContent = inputUserName.value;
   profileUserAbout.textContent = inputAboutMySelf.value;
-  
-  inputUserName.value = "";
-  inputAboutMySelf.value = "";
 
   closePopup(popupElement);
 }
@@ -82,15 +68,34 @@ initialCards.forEach((arrayElem) => {
 
 });
 
+
+
 //Добавление форм, названия, ссылки
-buttonAddCard.addEventListener("click", function (element) {
-  element.preventDefault();
+ function addCard (event) {
+  event.preventDefault();
  
   renderCard(nameInputPopup.value, nameInputLink.value, cardContainer)
 
-  nameInputPopup.value = "";
-  nameInputLink.value = "";
+  popupCardForm.reset();
 
   closePopup(popupElementCard)
-});
+};
 
+popupCardForm.addEventListener("submit", addCard);
+
+//Установка состояние кнопки добавление карточки
+function setStatusAddButton (isFormValidation) {
+  if (isFormValidation) {
+    buttonAddCard.removeAttribute("disabled");
+    buttonAddCard.classList.remove("popup_button-save_inactive"); 
+  } else {
+    buttonAddCard.setAttribute("disabled", true);
+    buttonAddCard.classList.add("popup_button-save_inactive"); 
+  }
+};
+
+popupCardForm.addEventListener("submit", function (event) {
+  event.preventDefault();
+
+  setStatusAddButton(false);
+});

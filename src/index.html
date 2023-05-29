@@ -42,16 +42,16 @@
     <div class="popup popup_type_profile">
         <div class="popup__container">
             <button type="button" aria-label="Закрыть окно" name="popupclosebutton" class="popup__close-icon"></button>
-            <form action="#" id='sendFormInput' method="post" class="popup__form" name="formpopup" novalidate>
+            <form action="#" id='sendFormInput' method="post" class="popup__form" name="profileForm" novalidate>
             <fieldset class="popup__fieldset">
                 <h2 class="popup__heading">Редактировать профиль</h2>
                 <label class="popup__label">
-                <input type="text" pattern="^[a-zA-Z]+$" data-error="Разрешены только латинские буквы." id="popupName" placeholder="Имя пользователья"
+                <input type="text" id="popupName" placeholder="Имя пользователья"
                     class="popup__item popup__item_heading" value="" name="popupHeading" minlength="2" maxlength="40" required>
                     <span id="popupName-error" class="popup__item-error"></span>
                 </label>
                 <label class="popup__label">
-                <input type="text" pattern="^[a-zA-Z]+$" data-error="Разрешены только латинские буквы." id="popupSureName" placeholder="О себе"
+                <input type="text" id="popupSureName" placeholder="О себе"
                     class="popup__item popup__item_subheading" value=""
                     name="popupSubHeading" minlength="2" maxlength="200" required>
                     <span id="popupSureName-error" class="popup__item-error"></span>
@@ -68,19 +68,19 @@
         <div class="popup__container">
             <button type="button" aria-label="Закрыть окно" name="popupclosebutton"
                 class="popup__close-icon popup__close-icon_card"></button>
-            <form id="addCardPopUpForm"  class="popup__form" name="formpopup" novalidate>
+            <form id="addCardPopupForm"  class="popup__form" name="cardForm" novalidate>
             <fieldset class="popup__fieldset">
                 <h2 class="popup__heading">Новое место</h2>
                 <label class="popup__label">
-                    <input type="text" pattern="^[^- ]+$" data-error="Вы пропустили это поле." id="popupNameTitle" placeholder="Название"
+                    <input type="text" data-error="Вы пропустили это поле." id="popupNameTitle" placeholder="Название"
                         class="popup__item popup__item_heading" value=""
-                        name="popupHeading" minlength="2" maxlength="30" required>
+                        name="popupHeadingCard" minlength="2" maxlength="30" required>
                     <span id="popupNameTitle-error" class="popup__item-error"></span>
                 </label>
                 <label class="popup__label">
                     <input type="url" id="popupLink" placeholder="Ссылка для картинки"
                         class="popup__item popup__item_subheading" value=""
-                        name="popupSubHeading" required>
+                        name="popupSubHeadingCard" required>
                     <span id="popupLink-error" class="popup__item-error"></span>
                 </label>
                 <button type="submit" aria-label="Кнопка добавить" name="popupbuttoncard"
