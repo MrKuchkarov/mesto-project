@@ -26,12 +26,23 @@ function zoomImageCard(cardName, imageLink) {
 export const cardTemplate = document.querySelector("#card-template").content;
 // const cards = document.querySelector(".card");
 
-export function createNewCard(cardName, imageLink) {
+export function createNewCard(cardName, imageLink, card, userId) {
   const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
   const cardImage = cardElement.querySelector(".card__image");
   cardImage.setAttribute("src", imageLink);
   cardImage.setAttribute("alt", cardName);
   
+  // const likesQuantity = cardElement.querySelector(".card__like-quantity");
+  // likesQuantity.textContent = card.likes.length;
+  // const likeButton = cardElement.querySelector(".card__like");
+  // if (
+  //   card.likes.find((item) => {
+  //     return userId === item._id
+  //   })
+  // ) {
+  //   likeButton.classList.add("card__like_active")
+  // }
+
   cardElement.querySelector(".card__title").textContent = cardName;
   cardElement.querySelector(".card__delete").addEventListener("click", removeCard);
   cardElement.querySelector(".card__like").addEventListener("click", toggleLike);

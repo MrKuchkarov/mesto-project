@@ -1,4 +1,4 @@
-import { popupElementCard } from "./constants"
+import { popupElementCard, popupAvatar } from "./constants"
 
 //Функция для открытия Попап
 export function openPopup(popupElement) {
@@ -33,7 +33,9 @@ export function openPopup(popupElement) {
     openPopup(popupElementCard);
   }
 
-
+  export function openPopupAvatar() {
+    openPopup(popupAvatar);
+  }
 
 
   

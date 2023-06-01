@@ -4,6 +4,7 @@ export const popupElement = document.querySelector(".popup");
 export const buttonSavePopupForm = document.querySelector(".popup__button-save"); 
 export const profileUserName = document.querySelector(".profile__name");
 export const profileUserAbout = document.querySelector(".profile__about");
+export const profileAvatar = document.querySelector(".profile__avatar");
 export const inputUserName = document.querySelector(".popup__item_heading");
 export const inputAboutMySelf = document.querySelector(".popup__item_subheading");
 export const buttonOpenPopupCard = document.querySelector(".profile__add-button"); 
@@ -16,11 +17,16 @@ export const buttonClosePopupZoom = document.querySelector(".popup_close-icon_zo
 export const popupZoom = document.querySelector(".popup_zoom_pic");
 export const popupProfile = document.querySelector(".popup_type_profile");
 export const popupFormProfile = document.forms.profileForm;
+export const popupName = popupFormProfile.elements.popupHeading;
+export const popupDescriptionProf = popupFormProfile.elements.popupSubHeading;
 export const popupCardForm = document.forms.cardForm;
 export const nameInputPopup = popupCardForm.elements.popupHeadingCard;
 export const nameInputLink = popupCardForm.elements.popupSubHeadingCard;
-
-
+export const popupAvatar = document.querySelector(".popup_avatar");
+export const buttonAvatar = document.querySelector(".profile__avatar-button")
+export const avatarForm = document.forms.profileFormAvatar;
+export const avatarInput = avatarForm.elements.popupAvatarHeading;
+export const popupSaveAvatar = avatarForm.elements.popupButtonAvatarSave;
 
 export const validationConfig = {
     formSelector: '.popup__form',

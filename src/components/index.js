@@ -1,7 +1,6 @@
 import '../pages/index.css'; // добавьте импорт главного файла стилей 
 import { buttonOpenPopupProfile, popupCloseButtons, popupElement, 
-  profileUserName, 
-  profileUserAbout, 
+  profileUserName, profileUserAbout, profileAvatar,
   inputUserName, 
   inputAboutMySelf, 
   buttonOpenPopupCard, 
@@ -14,10 +13,14 @@ import { buttonOpenPopupProfile, popupCloseButtons, popupElement,
   initialCards, 
   popupCardForm, 
   nameInputPopup, 
-  nameInputLink } from "./constants";
-import { openPopup, closePopup, openPopupCard } from './modal';
+  nameInputLink, 
+  buttonAvatar, avatarForm, avatarInput,
+  popupName, popupDescriptionProf, popupAvatar, popupSaveAvatar } from "./constants";
+import { openPopup, closePopup, openPopupCard, openPopupAvatar } from './modal';
 import { createNewCard } from './card';
-import { enableValidation } from './validate'; 
+import { enableValidation, toggleButtonState } from './validate'; 
+import { getCards, getUser, editProfile, editAvatar } from  "./api";
+import { disableButton } from './utils';
 
 
 
@@ -28,6 +31,43 @@ popupCloseButtons.forEach((button) => {
   button.addEventListener("click", () => closePopup(button.closest(".popup")));
 });
 
+
+//Запрос о пользователе
+getUser().then(user => {
+  profileUserName.textContent = user.name;
+  profileUserAbout.textContent = user.about;
+  profileAvatar.src = user.avatar;
+})
+
+
+//Связка попап с профилем
+function editProfileSubmit (evt) {
+  evt.preventDefault();
+  editProfile({ name: popupName.value, about: popupDescriptionProf.value })
+    .then((data) => {
+      profileUserName.textContent = data.name;
+      profileUserAbout.textContent = data.about;
+      closePopup(popupElement);
+    })
+    .catch((err) => console.log(err))
+    // .finally(() => renderLoading(profileSubmitButton, false));
+}
+popupFormProfile.addEventListener("submit", editProfileSubmit); 
+
+
+//Изменение аватара
+function changeAvatarSubmit (evt) {
+  evt.preventDefault();
+  editAvatar({ avatar: avatarInput.value})
+  .then((editData) => {
+    profileAvatar.src = editData.avatar;
+    disableButton(popupSaveAvatar)
+    avatarForm.reset();
+    closePopup(popupAvatar);
+  })
+  .catch((err) => console.log(err))
+}
+avatarForm.addEventListener("submit", changeAvatarSubmit);
 
 //Открытия попап профилья  
 function openPopupProfile () {
@@ -41,19 +81,10 @@ buttonOpenPopupProfile.addEventListener("click", openPopupProfile);
 //Открытия попап для добавления карточки
 buttonOpenPopupCard.addEventListener("click", openPopupCard);
 
+//открытия попап для изменение аватара
+buttonAvatar.addEventListener("click", openPopupAvatar)
 
-//Связка попап с профилем
-function editProfile(event) {
-  event.preventDefault();
-  profileUserName.textContent = inputUserName.value;
-  profileUserAbout.textContent = inputAboutMySelf.value;
-
-  closePopup(popupElement);
-}
-
-  popupFormProfile.addEventListener("submit", editProfile);  
-  
- 
+   
  //Рендринг карточки
  function renderCard (cardName, imageLink, container) {
   const card = createNewCard(cardName, imageLink);
@@ -61,21 +92,21 @@ function editProfile(event) {
  }
 
 
+//Перебирание массива из сервера
+getCards().then(cards => {
+  cards.forEach((arrayElem) => {
+    console.log()
+    renderCard(arrayElem.name, arrayElem.link, cardContainer);
+  });
+})
 
-//Перебирание массива
-initialCards.forEach((arrayElem) => {
-  renderCard(arrayElem.name, arrayElem.link, cardContainer);
 
-});
-
-
-
-//Добавление форм, названия, ссылки
+//Добавление форм, названия, ссылки и отправка формы
  function addCard (event) {
   event.preventDefault();
  
   renderCard(nameInputPopup.value, nameInputLink.value, cardContainer)
-
+  disableButton(buttonAddCard);
   popupCardForm.reset();
 
   closePopup(popupElementCard)
@@ -83,19 +114,5 @@ initialCards.forEach((arrayElem) => {
 
 popupCardForm.addEventListener("submit", addCard);
 
-//Установка состояние кнопки добавление карточки
-function setStatusAddButton (isFormValidation) {
-  if (isFormValidation) {
-    buttonAddCard.removeAttribute("disabled");
-    buttonAddCard.classList.remove("popup_button-save_inactive"); 
-  } else {
-    buttonAddCard.setAttribute("disabled", true);
-    buttonAddCard.classList.add("popup_button-save_inactive"); 
-  }
-};
 
-popupCardForm.addEventListener("submit", function (event) {
-  event.preventDefault();
 
-  setStatusAddButton(false);
-});
