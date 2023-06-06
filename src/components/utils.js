@@ -3,3 +3,10 @@ export function disableButton(buttonElement) {
     buttonElement.disabled = true;
 }
 
+export function buttonLoading(button, theLoading) {
+    if(theLoading) {
+        button.textContent = "Сохранить...";
+    } else {
+        button.textContent = "Сохранить";
+    }
+}

@@ -3,7 +3,7 @@ import { buttonOpenPopupProfile, popupCloseButtons, popupElement,
   profileUserName, profileUserAbout, profileAvatar,
   inputUserName, 
   inputAboutMySelf, 
-  buttonOpenPopupCard, 
+  buttonOpenPopupCard, buttonSavePopupForm,
   popupElementCard, 
   buttonAddCard, 
   cardContainer, 
@@ -19,10 +19,10 @@ import { buttonOpenPopupProfile, popupCloseButtons, popupElement,
 import { openPopup, closePopup, openPopupCard, openPopupAvatar } from './modal';
 import { createNewCard } from './card';
 import { enableValidation, toggleButtonState } from './validate'; 
-import { getCards, getUser, editProfile, editAvatar } from  "./api";
-import { disableButton } from './utils';
+import { getCards, getUser, editProfile, editAvatar, addCards, deleteCards, addLikes, removeLikes } from  "./api";
+import { disableButton, buttonLoading } from './utils';
 
-
+let userId;
 
 enableValidation(validationConfig);
 
@@ -32,17 +32,27 @@ popupCloseButtons.forEach((button) => {
 });
 
 
-//Запрос о пользователе
-getUser().then(user => {
+//Запрос о пользователе и перебирание массива из сервера
+Promise.all([getUser(), getCards()])
+.then(([user, initialCards]) => {
   profileUserName.textContent = user.name;
   profileUserAbout.textContent = user.about;
   profileAvatar.src = user.avatar;
+  userId = user._id
+
+  initialCards.forEach((arrayElem) => {
+    console.log(arrayElem)
+    renderCard(arrayElem.name, arrayElem.link, cardContainer);
+  });
+
 })
+
 
 
 //Связка попап с профилем
 function editProfileSubmit (evt) {
   evt.preventDefault();
+  buttonLoading(buttonSavePopupForm, true);
   editProfile({ name: popupName.value, about: popupDescriptionProf.value })
     .then((data) => {
       profileUserName.textContent = data.name;
@@ -50,7 +60,7 @@ function editProfileSubmit (evt) {
       closePopup(popupElement);
     })
     .catch((err) => console.log(err))
-    // .finally(() => renderLoading(profileSubmitButton, false));
+    .finally(() => buttonLoading(buttonSavePopupForm, false));
 }
 popupFormProfile.addEventListener("submit", editProfileSubmit); 
 
@@ -58,6 +68,7 @@ popupFormProfile.addEventListener("submit", editProfileSubmit);
 //Изменение аватара
 function changeAvatarSubmit (evt) {
   evt.preventDefault();
+  buttonLoading(popupSaveAvatar, true);
   editAvatar({ avatar: avatarInput.value})
   .then((editData) => {
     profileAvatar.src = editData.avatar;
@@ -66,6 +77,7 @@ function changeAvatarSubmit (evt) {
     closePopup(popupAvatar);
   })
   .catch((err) => console.log(err))
+  .finally(() => buttonLoading(popupSaveAvatar, false));
 }
 avatarForm.addEventListener("submit", changeAvatarSubmit);
 
@@ -91,14 +103,6 @@ buttonAvatar.addEventListener("click", openPopupAvatar)
   container.prepend(card);
  }
 
-
-//Перебирание массива из сервера
-getCards().then(cards => {
-  cards.forEach((arrayElem) => {
-    console.log()
-    renderCard(arrayElem.name, arrayElem.link, cardContainer);
-  });
-})
 
 
 //Добавление форм, названия, ссылки и отправка формы

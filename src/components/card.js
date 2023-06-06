@@ -22,16 +22,17 @@ function zoomImageCard(cardName, imageLink) {
     popupImage.alt = cardName;
   };
 
-//Создания и добавление карточки
+//Создания и добавление карточки 
 export const cardTemplate = document.querySelector("#card-template").content;
 // const cards = document.querySelector(".card");
 
 export function createNewCard(cardName, imageLink, card, userId) {
   const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
   const cardImage = cardElement.querySelector(".card__image");
-  cardImage.setAttribute("src", imageLink);
-  cardImage.setAttribute("alt", cardName);
+  cardImage.src = imageLink;
+  cardImage.alt = cardName;
   
+  // cardElement.querySelector(".card__title").textContent = card.name;
   // const likesQuantity = cardElement.querySelector(".card__like-quantity");
   // likesQuantity.textContent = card.likes.length;
   // const likeButton = cardElement.querySelector(".card__like");
