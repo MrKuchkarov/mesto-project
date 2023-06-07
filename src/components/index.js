@@ -22,7 +22,7 @@ import { enableValidation, toggleButtonState } from './validate';
 import { getCards, getUser, editProfile, editAvatar, addCards, deleteCards, addLikes, removeLikes } from  "./api";
 import { disableButton, buttonLoading } from './utils';
 
-let userId;
+
 
 enableValidation(validationConfig);
 
@@ -38,11 +38,14 @@ Promise.all([getUser(), getCards()])
   profileUserName.textContent = user.name;
   profileUserAbout.textContent = user.about;
   profileAvatar.src = user.avatar;
-  userId = user._id
-
+ 
+  
   initialCards.forEach((arrayElem) => {
-    console.log(arrayElem)
-    renderCard(arrayElem.name, arrayElem.link, cardContainer);
+    console.log()
+    
+    const card = createNewCard(arrayElem.name, arrayElem.link, arrayElem.likes, arrayElem._id, arrayElem.owner._id, user._id);
+    cardContainer.append(card);
+    console.log()
   });
 
 })
@@ -98,9 +101,10 @@ buttonAvatar.addEventListener("click", openPopupAvatar)
 
    
  //Рендринг карточки
- function renderCard (cardName, imageLink, container) {
-  const card = createNewCard(cardName, imageLink);
-  container.prepend(card);
+ function renderCard (cardName, imageLink, likes, cardId, container) {
+  const card = createNewCard(cardName, imageLink, likes, cardId);
+  container.append(card);
+  
  }
 
 
@@ -108,15 +112,20 @@ buttonAvatar.addEventListener("click", openPopupAvatar)
 //Добавление форм, названия, ссылки и отправка формы
  function addCard (event) {
   event.preventDefault();
- 
-  renderCard(nameInputPopup.value, nameInputLink.value, cardContainer)
+  const formData = {
+    name: nameInputPopup.value,
+    link: nameInputLink.value,
+  }
+  addCards(formData)
+    const card = createNewCard(nameInputPopup.value, nameInputLink.value);
+    cardContainer.append(card);
+  
+  // renderCard(nameInputPopup.value, nameInputLink.value, cardContainer)
   disableButton(buttonAddCard);
   popupCardForm.reset();
-
+  console.log()
   closePopup(popupElementCard)
 };
 
 popupCardForm.addEventListener("submit", addCard);
-
-
 
