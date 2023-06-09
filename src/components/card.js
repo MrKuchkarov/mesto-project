@@ -59,5 +59,6 @@ export function createNewCard(cardName, imageLink, likes, cardId, userId, user) 
   
   return cardElement;
   
+  
  }; 
  
