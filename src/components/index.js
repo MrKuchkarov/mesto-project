@@ -43,8 +43,8 @@ Promise.all([getUser(), getCards()])
   initialCards.forEach((arrayElem) => {
     const card = createNewCard(arrayElem.name, arrayElem.link, arrayElem.likes, arrayElem._id, arrayElem.owner._id, user._id);
     cardContainer.append(card); 
-  });
-
+  })
+  
 })
 
 
@@ -58,7 +58,7 @@ function editProfileSubmit (evt) {
       profileUserAbout.textContent = data.about;
       closePopup(popupElement);
     })
-    .catch((err) => console.log(err))
+    .catch((err) => console.log(`Ошибка: ${err}`))
     .finally(() => buttonLoading(buttonSavePopupForm, false));
 }
 popupFormProfile.addEventListener("submit", editProfileSubmit); 
