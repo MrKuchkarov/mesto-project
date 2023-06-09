@@ -1,6 +1,5 @@
-import { openPopup } from "./modal";
+import { closePopup, openPopup } from "./modal";
 import { popupZoom, popupImage, popupDescription, popupDeleteCard, popupDeleteButton, cardDeleteButton } from "./constants"
-import { addLikes, removeLikes, deleteCards } from "./api"
 import { toggleLike, removeCard } from "./index"
 // import { toggleButtonState } from ("./validate");
 
@@ -27,27 +26,23 @@ export function createNewCard(cardName, imageLink, likes, cardId, userId, user) 
   //лайки карточек
   const likesQuantity = cardElement.querySelector(".card__like-quantity");
   likesQuantity.textContent = likes.length;
-  
   const likeCards = cardElement.querySelector(".card__like")
-  
+
   if (likes.find((item) => {
       return item._id === user;
     })) {
       likeCards.classList.add("card__like_active");
     } 
-  // const likeCards = likes.find(item => item._id === user);
-  // if(likeCards) {
-  //   cardElement.querySelector(".card__like").classList.add("card__like_active");
-  // }
-  
+
   //удаление карточек
   if (userId !== user) {
     cardElement.querySelector(".card__delete").remove();
     
   } else {
     cardElement.querySelector(".card__delete").addEventListener("click", function() {
-      // openPopup(popupDeleteCard)
-      removeCard(cardId, this)
+      openPopup(popupDeleteCard, cardId)
+      this.classList.add("delete_active")
+      
     });
   } 
 
@@ -62,3 +57,10 @@ export function createNewCard(cardName, imageLink, likes, cardId, userId, user) 
   
  }; 
  
+ //Удаление карточек через модальное окно
+ popupDeleteButton.addEventListener("click", function() {
+  const cardBlock = document.querySelector(".delete_active");
+  const cardId = this.dataset.id;
+  removeCard(cardId, cardBlock)
+  closePopup(popupDeleteCard)
+ })
