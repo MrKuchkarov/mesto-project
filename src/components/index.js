@@ -10,15 +10,15 @@ import { buttonOpenPopupProfile, popupCloseButtons, popupElement,
   popupProfile, 
   popupFormProfile, 
   validationConfig, 
-  initialCards, 
   popupCardForm, 
   nameInputPopup, 
   nameInputLink, 
   buttonAvatar, avatarForm, avatarInput,
-  popupName, popupDescriptionProf, popupAvatar, popupSaveAvatar } from "./constants";
+  popupName, popupDescriptionProf, popupAvatar, popupSaveAvatar,
+  popupDeleteCard  } from "./constants";
 import { openPopup, closePopup, openPopupCard, openPopupAvatar } from './modal';
 import { createNewCard } from './card';
-import { enableValidation, toggleButtonState } from './validate'; 
+import { enableValidation } from './validate'; 
 import { getCards, getUser, editProfile, editAvatar, addCards, deleteCards, addLikes, removeLikes } from  "./api";
 import { disableButton, buttonLoading } from './utils';
 
@@ -41,15 +41,11 @@ Promise.all([getUser(), getCards()])
  
   
   initialCards.forEach((arrayElem) => {
-    console.log()
-    
     const card = createNewCard(arrayElem.name, arrayElem.link, arrayElem.likes, arrayElem._id, arrayElem.owner._id, user._id);
-    cardContainer.append(card);
-    console.log()
+    cardContainer.append(card); 
   });
 
 })
-
 
 
 //Связка попап с профилем
@@ -99,33 +95,70 @@ buttonOpenPopupCard.addEventListener("click", openPopupCard);
 //открытия попап для изменение аватара
 buttonAvatar.addEventListener("click", openPopupAvatar)
 
-   
  //Рендринг карточки
- function renderCard (cardName, imageLink, likes, cardId, container) {
-  const card = createNewCard(cardName, imageLink, likes, cardId);
-  container.append(card);
+ function renderCard (cardName, imageLink, likes, cardId) {
+  // const card = createNewCard(cardName, imageLink, likes, cardId);
+  cardContainer.append(createNewCard(cardName, imageLink, likes, cardId));
   
  }
-
 
 
 //Добавление форм, названия, ссылки и отправка формы
  function addCard (event) {
   event.preventDefault();
+  buttonLoading(buttonAddCard, true);
   const formData = {
     name: nameInputPopup.value,
     link: nameInputLink.value,
   }
   addCards(formData)
-    const card = createNewCard(nameInputPopup.value, nameInputLink.value);
-    cardContainer.append(card);
-  
-  // renderCard(nameInputPopup.value, nameInputLink.value, cardContainer)
-  disableButton(buttonAddCard);
-  popupCardForm.reset();
-  console.log()
-  closePopup(popupElementCard)
-};
+  .then((res) => { 
+
+    const card = createNewCard(res.name, res.link, res.likes, res._id);
+    cardContainer.prepend(card)
+   
+    disableButton(buttonAddCard);
+    closePopup(popupElementCard);
+    popupCardForm.reset();
+ })
+  .catch((err) => console.log(`Ошибка: ${err}`))
+  .finally(() => buttonLoading(buttonAddCard, false));
+}
 
 popupCardForm.addEventListener("submit", addCard);
 
+
+//Функция для удаление карточки 
+export function removeCard(cardId, element) {
+  deleteCards(cardId)
+  .then (() => {
+    element.closest(".card").remove();
+    
+  })
+  .catch((err) => console.log(`Ошибка: ${err}`))
+  };
+  
+  
+  //Функция для лайки
+export function toggleLike(cardId, element) {
+  
+    const parent = element.parentNode;
+    const counters = parseInt(parent.querySelector(".card__like-quantity").textContent);
+
+    if (element.classList.contains("card__like_active")) {
+      removeLikes(cardId)
+      .then(() => {
+        parent.querySelector(".card__like-quantity").textContent = counters-1;
+        element.classList.remove("card__like_active")
+      })
+      .catch((err) => console.log(`Ошибка: ${err}`))
+    } else {
+      addLikes(cardId)
+      .then(() => {
+        parent.querySelector(".card__like-quantity").textContent = counters+1;
+        element.classList.add("card__like_active"); 
+      })
+      .catch((err) => console.log(`Ошибка: ${err}`))
+    }
+
+  };

@@ -27,6 +27,9 @@ export const buttonAvatar = document.querySelector(".profile__avatar-button")
 export const avatarForm = document.forms.profileFormAvatar;
 export const avatarInput = avatarForm.elements.popupAvatarHeading;
 export const popupSaveAvatar = avatarForm.elements.popupButtonAvatarSave;
+export const popupDeleteCard = document.querySelector(".popup_delete");
+export const popupDeleteButton = document.querySelector(".popup__button-delete");
+export const cardDeleteButton = document.querySelector(".card__delete");
 
 export const validationConfig = {
     formSelector: '.popup__form',
