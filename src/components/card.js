@@ -5,7 +5,7 @@ import { toggleLike, removeCard } from "./index"
 // import { toggleButtonState } from ("./validate");
 
 
-console.log()
+
 //Открытия попап, добавление картинки и описание картинки в попап
 function zoomImageCard(cardName, imageLink) {
     openPopup(popupZoom);
@@ -13,7 +13,7 @@ function zoomImageCard(cardName, imageLink) {
     popupDescription.textContent = cardName;
     popupImage.alt = cardName;
   };
-console.log(cardDeleteButton)
+
 //Создания и добавление карточки 
 export const cardTemplate = document.querySelector("#card-template").content;
 // const cards = document.querySelector(".card");
