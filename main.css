@@ -47,4 +47,7 @@
 
 .popup__label{display:flex;flex-direction:column;height:60px;margin:0 0 5px}.popup__label:last-of-type{margin:0}
 .popup__fieldset{border:none;display:flex;flex-direction:column;padding:34px 36px 36px}@media (max-width:602px){.popup__fieldset{max-width:282px;padding:25px 22px}}
+.popup__container-delete{max-height:181px;max-width:430px}
+.popup__button-delete{height:50px;margin:0 36px 36px;max-width:358px}@media (max-width:602px){.popup__button-delete{margin:0 26px 26px}}
+.popup__heading-delete{padding:34px 0 38px 36px}
 
