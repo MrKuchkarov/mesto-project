@@ -20,7 +20,7 @@ import { openPopup, closePopup, openPopupCard, openPopupAvatar } from './modal';
 import { createNewCard } from './card';
 import { enableValidation } from './validate'; 
 import { getCards, getUser, editProfile, editAvatar, addCards, deleteCards, addLikes, removeLikes } from  "./api";
-import { disableButton, buttonLoading } from './utils';
+import { disableButton, setLoading, handleSubmit } from './utils';
 
 
 
@@ -39,46 +39,44 @@ Promise.all([getUser(), getCards()])
   profileUserAbout.textContent = user.about;
   profileAvatar.src = user.avatar;
  
-  
   initialCards.forEach((arrayElem) => {
     const card = createNewCard(arrayElem.name, arrayElem.link, arrayElem.likes, arrayElem._id, arrayElem.owner._id, user._id);
     cardContainer.append(card); 
   })
-  
 })
-
+.catch((error) => console.log(`Ошибка: ${error}`))
 
 //Связка попап с профилем
 function editProfileSubmit (evt) {
   evt.preventDefault();
-  buttonLoading(buttonSavePopupForm, true);
-  editProfile({ name: popupName.value, about: popupDescriptionProf.value })
+
+  function makeRequest () {
+    return  editProfile({ name: popupName.value, about: popupDescriptionProf.value })
     .then((data) => {
       profileUserName.textContent = data.name;
       profileUserAbout.textContent = data.about;
-      closePopup(popupElement);
+      closePopup(popupProfile);
     })
-    .catch((err) => console.log(`Ошибка: ${err}`))
-    .finally(() => buttonLoading(buttonSavePopupForm, false));
+  }
+  handleSubmit(makeRequest, evt);
 }
 popupFormProfile.addEventListener("submit", editProfileSubmit); 
 
 
 //Изменение аватара
-function changeAvatarSubmit (evt) {
+function editAvatarSubmit (evt) {
   evt.preventDefault();
-  buttonLoading(popupSaveAvatar, true);
-  editAvatar({ avatar: avatarInput.value})
-  .then((editData) => {
-    profileAvatar.src = editData.avatar;
-    disableButton(popupSaveAvatar)
-    avatarForm.reset();
-    closePopup(popupAvatar);
-  })
-  .catch((err) => console.log(err))
-  .finally(() => buttonLoading(popupSaveAvatar, false));
+
+  function makeRequest () {
+    return editAvatar({ avatar: avatarInput.value})
+    .then((editData) => {
+      profileAvatar.src = editData.avatar;
+      closePopup(popupAvatar);
+    })
+  }
+  handleSubmit(makeRequest, evt);
 }
-avatarForm.addEventListener("submit", changeAvatarSubmit);
+avatarForm.addEventListener("submit", editAvatarSubmit);
 
 //Открытия попап профилья  
 function openPopupProfile () {
@@ -97,32 +95,27 @@ buttonAvatar.addEventListener("click", openPopupAvatar)
 
  //Рендринг карточки
  function renderCard (cardName, imageLink, likes, cardId) {
-  // const card = createNewCard(cardName, imageLink, likes, cardId);
   cardContainer.append(createNewCard(cardName, imageLink, likes, cardId));
-  
  }
 
 
 //Добавление форм, названия, ссылки и отправка формы
- function addCard (event) {
-  event.preventDefault();
-  buttonLoading(buttonAddCard, true);
-  const formData = {
-    name: nameInputPopup.value,
-    link: nameInputLink.value,
+ function addCard (evt) {
+  evt.preventDefault();
+  
+  function makeRequest() {
+     const formData = {
+      name: nameInputPopup.value,
+      link: nameInputLink.value,
+    }
+    return addCards(formData)
+    .then((response) => { 
+      const card = createNewCard(response.name, response.link, response.likes, response._id);
+      cardContainer.prepend(card)
+      closePopup(popupElementCard);
+   })
   }
-  addCards(formData)
-  .then((res) => { 
-
-    const card = createNewCard(res.name, res.link, res.likes, res._id);
-    cardContainer.prepend(card)
-   
-    disableButton(buttonAddCard);
-    closePopup(popupElementCard);
-    popupCardForm.reset();
- })
-  .catch((err) => console.log(`Ошибка: ${err}`))
-  .finally(() => buttonLoading(buttonAddCard, false));
+  handleSubmit(makeRequest, evt)
 }
 
 popupCardForm.addEventListener("submit", addCard);
@@ -133,32 +126,32 @@ export function removeCard(cardId, element) {
   deleteCards(cardId)
   .then (() => {
     element.closest(".card").remove();
-    
   })
-  .catch((err) => console.log(`Ошибка: ${err}`))
+  .catch((error) => console.log(`Ошибка: ${error}`))
   };
   
   
   //Функция для лайки
-export function toggleLike(cardId, element) {
-  
-    const parent = element.parentNode;
-    const counters = parseInt(parent.querySelector(".card__like-quantity").textContent);
+export function toggleButtonLike(cardId, element) {
+    
+    const parentCard = element.closest(".card");
+    const cardLikeQuantity = parentCard.querySelector(".card__like-quantity");
+   
 
     if (element.classList.contains("card__like_active")) {
       removeLikes(cardId)
-      .then(() => {
-        parent.querySelector(".card__like-quantity").textContent = counters-1;
+      .then((response) => {
         element.classList.remove("card__like_active")
+        cardLikeQuantity.textContent = response.likes.length;
       })
-      .catch((err) => console.log(`Ошибка: ${err}`))
+      .catch((error) => console.log(`Ошибка: ${error}`))
     } else {
       addLikes(cardId)
-      .then(() => {
-        parent.querySelector(".card__like-quantity").textContent = counters+1;
+      .then((response) => {
         element.classList.add("card__like_active"); 
+        cardLikeQuantity.textContent = response.likes.length;
       })
-      .catch((err) => console.log(`Ошибка: ${err}`))
+      .catch((error) => console.log(`Ошибка: ${error}`))
     }
 
   };

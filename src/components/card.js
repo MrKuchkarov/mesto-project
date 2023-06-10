@@ -1,9 +1,6 @@
 import { closePopup, openPopup } from "./modal";
 import { popupZoom, popupImage, popupDescription, popupDeleteCard, popupDeleteButton, cardDeleteButton } from "./constants"
-import { toggleLike, removeCard } from "./index"
-// import { toggleButtonState } from ("./validate");
-
-
+import { toggleButtonLike, removeCard } from "./index"
 
 //Открытия попап, добавление картинки и описание картинки в попап
 function zoomImageCard(cardName, imageLink) {
@@ -15,12 +12,11 @@ function zoomImageCard(cardName, imageLink) {
 
 //Создания и добавление карточки 
 export const cardTemplate = document.querySelector("#card-template").content;
-// const cards = document.querySelector(".card");
 
 export function createNewCard(cardName, imageLink, likes, cardId, userId, user) {
   const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
   const cardImage = cardElement.querySelector(".card__image");
-  cardImage.src = imageLink;
+  cardImage.src = imageLink;  
   cardImage.alt = cardName;
   
   //лайки карточек
@@ -35,32 +31,18 @@ export function createNewCard(cardName, imageLink, likes, cardId, userId, user) 
     } 
 
   //удаление карточек
+  const deleteButton = cardElement.querySelector(".card__delete")
   if (userId !== user) {
-    cardElement.querySelector(".card__delete").remove();
+    deleteButton.remove();
     
   } else {
-    cardElement.querySelector(".card__delete").addEventListener("click", function() {
-      openPopup(popupDeleteCard, cardId)
-      this.classList.add("delete_active")
-      
-    });
+    deleteButton.addEventListener("click", () => removeCard(cardId, deleteButton));
   } 
 
   cardElement.querySelector(".card__title").textContent = cardName;
-  cardElement.querySelector(".card__like").addEventListener("click", function() {
-    toggleLike(cardId, this)
-  });
+  likeCards.addEventListener("click", () => toggleButtonLike(cardId, likeCards));
   cardImage.addEventListener("click", () => zoomImageCard(cardName, imageLink));
   
   return cardElement;
   
-  
  }; 
- 
- //Удаление карточек через модальное окно
- popupDeleteButton.addEventListener("click", function() {
-  const cardBlock = document.querySelector(".delete_active");
-  const cardId = this.dataset.id;
-  removeCard(cardId, cardBlock)
-  closePopup(popupDeleteCard)
- })

@@ -1,13 +1,10 @@
 import { popupElementCard, popupAvatar, popupDeleteButton, cardDeleteButton } from "./constants"
 
 //Функция для открытия Попап
-export function openPopup(popupElement, id) {
+export function openPopup(popupElement) {
     popupElement.classList.add('popup_opened');
     document.addEventListener("keydown", handleEscapeKeyPopup);
     document.addEventListener("click", handleOverlayPopup);
-    if(id) {
-      popupDeleteButton.dataset.id = id;
-    }
   };
   
   //Функция для закрытия Попап
@@ -15,15 +12,6 @@ export function openPopup(popupElement, id) {
     popupElement.classList.remove('popup_opened');
     document.removeEventListener("keydown", handleEscapeKeyPopup);
     document.removeEventListener("click", handleOverlayPopup);
-    //
-    const cardBlock = document.querySelectorAll(".card");
-    cardBlock.forEach(function(element){
-      const deleteButton = element.querySelector(".card__delete");
-      if (deleteButton && deleteButton.classList.contains("delete_active")) {
-        deleteButton.classList.remove("delete_active");
-      }
-    })
-  
   }
   
   //Функция для закрытия попап по эскейп

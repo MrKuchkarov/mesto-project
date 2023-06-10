@@ -1,3 +1,4 @@
+import { disableButton } from "./utils";
 
 // Функция, которая добавляет класс с ошибкой
 const showInputError = (formPopupElement, inputPopupElement, errorMessage, config) => {
@@ -42,6 +43,11 @@ const showInputError = (formPopupElement, inputPopupElement, errorMessage, confi
     const buttonPopupElement = formPopupElement.querySelector(config.submitButtonSelector);
     toggleButtonState(inputPopupList, buttonPopupElement, config);
     
+    formPopupElement.addEventListener('reset', () => {
+      disableButton(buttonPopupElement, config)
+    });
+   
+
     inputPopupList.forEach((inputPopupElement) => {
       inputPopupElement.addEventListener("input", function () {
         checkInputValidity(formPopupElement, inputPopupElement, config);

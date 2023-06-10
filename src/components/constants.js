@@ -1,6 +1,5 @@
 export const buttonOpenPopupProfile = document.querySelector(".profile__edit-button");
 export const popupCloseButtons = document.querySelectorAll(".popup__close-icon"); 
-export const popupElement = document.querySelector(".popup");
 export const buttonSavePopupForm = document.querySelector(".popup__button-save"); 
 export const profileUserName = document.querySelector(".profile__name");
 export const profileUserAbout = document.querySelector(".profile__about");
