@@ -15,14 +15,23 @@ import { buttonOpenPopupProfile, popupCloseButtons, popupElement,
   nameInputLink, 
   buttonAvatar, avatarForm, avatarInput,
   popupName, popupDescriptionProf, popupAvatar, popupSaveAvatar,
-  popupDeleteCard  } from "./constants";
-import { openPopup, closePopup, openPopupCard, openPopupAvatar } from './modal';
-import { createNewCard } from './card';
-import { enableValidation } from './validate'; 
-import { getCards, getUser, editProfile, editAvatar, addCards, deleteCards, addLikes, removeLikes } from  "./api";
-import { disableButton, setLoading, handleSubmit } from './utils';
+  popupDeleteCard  } from "./constants.js";
+import { openPopup, closePopup, openPopupCard, openPopupAvatar } from './modal.js';
+import { createNewCard } from './card.js';
+import { enableValidation } from './validate.js'; 
+import { Api } from  "./api.js";
+import { disableButton, setLoading, handleSubmit } from './utils.js';
 
+export const urlConfig = {
+  url: "https://nomoreparties.co/v1/plus-cohort-25",
+  headers: {
+    authorization: "294fa835-21a0-447a-ba41-ef90dc4b17f8",
+    "Content-Type": "application/json",
+  }
+}
 
+const api  = new Api(urlConfig);
+ 
 
 enableValidation(validationConfig);
 
@@ -33,7 +42,7 @@ popupCloseButtons.forEach((button) => {
 
 
 //Запрос о пользователе и перебирание массива из сервера
-Promise.all([getUser(), getCards()])
+Promise.all([api.getUser(), api.getCards()])
 .then(([user, initialCards]) => {
   profileUserName.textContent = user.name;
   profileUserAbout.textContent = user.about;
@@ -42,7 +51,7 @@ Promise.all([getUser(), getCards()])
   initialCards.forEach((arrayElem) => {
     const card = createNewCard(arrayElem.name, arrayElem.link, arrayElem.likes, arrayElem._id, arrayElem.owner._id, user._id);
     cardContainer.append(card);
-    console.log(arrayElem)
+    console.log()
   })
 })
 .catch((error) => console.log(`Ошибка: ${error}`))
@@ -52,7 +61,7 @@ function editProfileSubmit (evt) {
   evt.preventDefault();
 
   function makeRequest () {
-    return  editProfile({ name: popupName.value, about: popupDescriptionProf.value })
+    return  api.editProfile({ name: popupName.value, about: popupDescriptionProf.value })
     .then((data) => {
       profileUserName.textContent = data.name;
       profileUserAbout.textContent = data.about;
@@ -69,7 +78,7 @@ function editAvatarSubmit (evt) {
   evt.preventDefault();
 
   function makeRequest () {
-    return editAvatar({ avatar: avatarInput.value})
+    return api.editAvatar({ avatar: avatarInput.value})
     .then((editData) => {
       profileAvatar.src = editData.avatar;
       closePopup(popupAvatar);
@@ -109,7 +118,7 @@ buttonAvatar.addEventListener("click", openPopupAvatar)
       name: nameInputPopup.value,
       link: nameInputLink.value,
     }
-    return addCards(formData)
+    return api.addCards(formData)
     .then((response) => { 
       const card = createNewCard(response.name, response.link, response.likes, response._id);
       cardContainer.prepend(card)
@@ -124,7 +133,7 @@ popupCardForm.addEventListener("submit", addCard);
 
 //Функция для удаление карточки 
 export function removeCard(cardId, element) {
-  deleteCards(cardId)
+  api.deleteCards(cardId)
   .then (() => {
     element.closest(".card").remove();
   })
@@ -140,14 +149,14 @@ export function toggleButtonLike(cardId, element) {
    
 
     if (element.classList.contains("card__like_active")) {
-      removeLikes(cardId)
+      api.removeLikes(cardId)
       .then((response) => {
         element.classList.remove("card__like_active")
         cardLikeQuantity.textContent = response.likes.length;
       })
       .catch((error) => console.log(`Ошибка: ${error}`))
     } else {
-      addLikes(cardId)
+      api.addLikes(cardId)
       .then((response) => {
         element.classList.add("card__like_active"); 
         cardLikeQuantity.textContent = response.likes.length;

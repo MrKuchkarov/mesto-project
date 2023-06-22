@@ -1,76 +1,81 @@
-const urlConfig = {
-  url: "https://nomoreparties.co/v1/plus-cohort-25",
-  headers: {
-    authorization: "294fa835-21a0-447a-ba41-ef90dc4b17f8",
-    "Content-Type": "application/json",
+
+export class Api { 
+   
+  #checkResponse (response) {
+    // if(!response.ok) {
+      console.log(response);
+      return response.ok ? response.json() : Promise.reject(`Ошибка: ${response.status}`)
+      // return Promise.reject(`Ошибка: ${response.status}`);
+    }
+    // return response.json()
+  
+
+  constructor(urlConfig) {
+    this._url = urlConfig.url;
+    this._headers = urlConfig.headers; 
   }
-}
 
-function checkResponse (response) {
-  if(!response.ok) {
-    return Promise.reject(`Ошибка: ${response.status}`);
+  
+  //Запрос о пользователе
+   getUser () {
+    return fetch(`${this._url}/users/me`, { 
+      headers: this._headers })
+    .then(this.#checkResponse)
   }
-  return response.json()
+  
+  //Запрос для изменение профилья 
+  editProfile (editData) {
+    return fetch(`${this._url}/users/me`, {
+      method: "PATCH",
+      headers: this._headers,
+      body: JSON.stringify(editData),})
+      .then(this.#checkResponse);
+  };
+  
+  //Запрос о карточках
+  getCards () {
+    return fetch(`${this._url}/cards`, { 
+      headers: this._headers })
+    .then(this.#checkResponse)
+  };
+  
+  //Запрос на создания карточек
+  addCards (inputData) {
+    return fetch(`${this._url}/cards`, {
+      method: "POST",
+      headers: this._headers,
+      body: JSON.stringify(inputData),})
+      .then(this.#checkResponse)
+  };
+  
+  //Запрос для изменение аватара
+  editAvatar (editData) {
+    return fetch(`${this._url}/users/me/avatar`, {
+      method: "PATCH",
+      headers: this._headers,
+      body: JSON.stringify(editData),})
+      .then(this.#checkResponse)
+  };
+  
+  deleteCards (cardId) {
+    return fetch(`${this._url}/cards/${cardId}`, {
+      method: "DELETE",
+      headers: this._headers,})
+      .then(this.#checkResponse)
+  };
+  
+  addLikes (cardId) {
+    return fetch(`${this._url}/cards/likes/${cardId}`, {
+      method: "PUT",
+      headers: this._headers,})
+      .then(this.#checkResponse)
+  };
+  
+  removeLikes (cardId) {
+    return fetch(`${this._url}/cards/likes/${cardId}`, {
+      method: "DELETE",
+      headers: this._headers,})
+      .then(this.#checkResponse)
+  };
 }
 
-//Запрос о пользователе
-export function getUser () {
-  return fetch(`${urlConfig.url}/users/me`, { 
-    headers: urlConfig.headers })
-  .then(checkResponse)
-}
-
-//Запрос для изменение профилья 
-export function editProfile (editData) {
-  return fetch(`${urlConfig.url}/users/me`, {
-    method: "PATCH",
-    headers: urlConfig.headers,
-    body: JSON.stringify(editData),})
-    .then(checkResponse);
-};
-
-//Запрос о карточках
-export function getCards () {
-  return fetch(`${urlConfig.url}/cards`, { 
-    headers: urlConfig.headers })
-  .then(checkResponse)
-};
-
-//Запрос на создания карточек
-export function addCards (inputData) {
-  return fetch(`${urlConfig.url}/cards`, {
-    method: "POST",
-    headers: urlConfig.headers,
-    body: JSON.stringify(inputData),})
-    .then(checkResponse)
-};
-
-//Запрос для изменение аватара
-export function editAvatar (editData) {
-  return fetch(`${urlConfig.url}/users/me/avatar`, {
-    method: "PATCH",
-    headers: urlConfig.headers,
-    body: JSON.stringify(editData),})
-    .then(checkResponse)
-};
-
-export function deleteCards (cardId) {
-  return fetch(`${urlConfig.url}/cards/${cardId}`, {
-    method: "DELETE",
-    headers: urlConfig.headers,})
-    .then(checkResponse)
-};
-
-export function addLikes (cardId) {
-  return fetch(`${urlConfig.url}/cards/likes/${cardId}`, {
-    method: "PUT",
-    headers: urlConfig.headers,})
-    .then(checkResponse)
-};
-
-export function removeLikes (cardId) {
-  return fetch(`${urlConfig.url}/cards/likes/${cardId}`, {
-    method: "DELETE",
-    headers: urlConfig.headers,})
-    .then(checkResponse)
-};
