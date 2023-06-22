@@ -1,8 +1,10 @@
+//Функция для кнопки в состоянии disabled 
 export function disableButton(buttonElement) {
     buttonElement.classList.add("popup_button-save_inactive");
     buttonElement.disabled = true;
 }
 
+//Функция для UX для кнопок
 export function setLoading(isLoading, button, buttonText='Сохранить', loadingText='Сохранение...') {
     if(isLoading) {
         button.textContent = loadingText
@@ -11,7 +13,7 @@ export function setLoading(isLoading, button, buttonText='Сохранить', l
     }
 }
 
-
+//Универсальная функция для всех Submit
 export function handleSubmit(request, evt, loadingText = "Сохранение...") {
  
      evt.preventDefault();
